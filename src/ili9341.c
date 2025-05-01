@@ -109,9 +109,9 @@ void ILI9341_Init() {
 		perror("Chip didn't run");
 	}
 	
-	ledPin = gpiod_chip_get_line(chip, GPIO_LED);
-	dcPin   = gpiod_chip_get_line(chip, GPIO_DC);
-	resetPin = gpiod_chip_get_line(chip, GPIO_RESET);
+	ledPin = gpiod_chip_get_line(chip, ILI9341_LED_Pin);
+	dcPin   = gpiod_chip_get_line(chip, ILI9341_DC_Pin);
+	resetPin = gpiod_chip_get_line(chip, ILI9341_RES_Pin);
 	if(!ledPin || !dcPin || !resetPin){
 
 
