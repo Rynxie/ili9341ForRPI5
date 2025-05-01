@@ -56,7 +56,7 @@ void ILI9341_Unselect() {
 static void ILI9341_Reset() {
     gpiod_line_set_value(resetPin, 0);
     sleep(1);
-    gpiod_line_set_value(resetPin, 0);
+    gpiod_line_set_value(resetPin, 1);
 }
 
 static void ILI9341_WriteCommand(uint8_t cmd) {
