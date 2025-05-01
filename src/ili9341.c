@@ -32,7 +32,7 @@ static void spiSendData(uint8_t * data, size_t len){
     if (ioctl(spi_fd, SPI_IOC_MESSAGE(1), &tr) < 1) {
         perror("SPI transfer hatası");
         close(spi_fd);
-        return 1;
+        
     } 
 
 }
