@@ -52,6 +52,7 @@ int main() {
     lv_display_set_flush_cb(display, my_flush_cb);
     ui_init();
     sleep(1);
+    ILI9341_FillScreen(ILI9341_RED);
     pthread_t tick_tid;
     pthread_create(&tick_tid, NULL, tick_thread, NULL);
     while (1)
