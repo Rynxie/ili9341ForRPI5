@@ -18,7 +18,7 @@ extern "C" {
 #if LV_USE_MENU
 
 #if LV_USE_FLEX == 0
-#error "lv_menu: lv_flex is required. Enable it in lv_conf.h (LV_USE_FLEX 1)"
+#error "LV_USE_FLEX needs to be enabled"
 #endif
 
 /*********************

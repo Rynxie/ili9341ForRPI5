@@ -1,10 +1,10 @@
 /**
- * @file lv_3dtexture_private.h
- *
- */
+* @file lv_cache_lru_rb.h
+*
+*/
 
-#ifndef LV_3DTEXTURE_PRIVATE_H
-#define LV_3DTEXTURE_PRIVATE_H
+#ifndef LV_CACHE_LRU_RB_H
+#define LV_CACHE_LRU_RB_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,11 +13,8 @@ extern "C" {
 /*********************
  *      INCLUDES
  *********************/
-
-#include "lv_3dtexture.h"
-#if LV_USE_3DTEXTURE
-
-#include "../../core/lv_obj_private.h"
+#include "lv_cache_entry.h"
+#include "lv_cache_private.h"
 
 /*********************
  *      DEFINES
@@ -27,24 +24,21 @@ extern "C" {
  *      TYPEDEFS
  **********************/
 
-/*Data of 3dtexture*/
-struct _lv_3dtexture_t {
-    lv_obj_t obj;
-    lv_3dtexture_id_t id;
-};
-
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
 
+/*************************
+ *    GLOBAL VARIABLES
+ *************************/
+LV_ATTRIBUTE_EXTERN_DATA extern const lv_cache_class_t lv_cache_class_lru_rb_count;
+LV_ATTRIBUTE_EXTERN_DATA extern const lv_cache_class_t lv_cache_class_lru_rb_size;
 /**********************
  *      MACROS
  **********************/
-
-#endif /*LV_USE_3DTEXTURE*/
 
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif /*LV_3DTEXTURE_PRIVATE_H*/
+#endif /*LV_CACHE_LRU_RB_H*/

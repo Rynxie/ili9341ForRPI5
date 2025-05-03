@@ -140,7 +140,7 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
     }
     lv_area_t clip_coords_for_children;
     bool refr_children = true;
-    if(!lv_area_intersect(&clip_coords_for_children, &layer->_clip_area, obj_coords) || layer->opa <= LV_OPA_MIN) {
+    if(!lv_area_intersect(&clip_coords_for_children, &clip_area_ori, obj_coords)) {
         refr_children = false;
     }
 
@@ -149,6 +149,7 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
         uint32_t child_cnt = lv_obj_get_child_count(obj);
         if(child_cnt == 0) {
             /*If the object was visible on the clip area call the post draw events too*/
+            layer->_clip_area = clip_coords_for_obj;
             /*If all the children are redrawn make 'post draw' draw*/
             lv_obj_send_event(obj, LV_EVENT_DRAW_POST_BEGIN, layer);
             lv_obj_send_event(obj, LV_EVENT_DRAW_POST, layer);
@@ -171,6 +172,7 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
                 }
 
                 /*If the object was visible on the clip area call the post draw events too*/
+                layer->_clip_area = clip_coords_for_obj;
                 /*If all the children are redrawn make 'post draw' draw*/
                 lv_obj_send_event(obj, LV_EVENT_DRAW_POST_BEGIN, layer);
                 lv_obj_send_event(obj, LV_EVENT_DRAW_POST, layer);
@@ -191,7 +193,7 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
 
                 lv_area_t bottom = obj->coords;
                 bottom.y1 = bottom.y2 - rout + 1;
-                if(lv_area_intersect(&bottom, &bottom, &layer->_clip_area)) {
+                if(lv_area_intersect(&bottom, &bottom, &clip_area_ori)) {
                     layer_children = lv_draw_layer_create(layer, LV_COLOR_FORMAT_ARGB8888, &bottom);
 
                     for(i = 0; i < child_cnt; i++) {
@@ -212,7 +214,7 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
 
                 lv_area_t top = obj->coords;
                 top.y2 = top.y1 + rout - 1;
-                if(lv_area_intersect(&top, &top, &layer->_clip_area)) {
+                if(lv_area_intersect(&top, &top, &clip_area_ori)) {
                     layer_children = lv_draw_layer_create(layer, LV_COLOR_FORMAT_ARGB8888, &top);
 
                     for(i = 0; i < child_cnt; i++) {
@@ -235,7 +237,7 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
                 lv_area_t mid = obj->coords;
                 mid.y1 += rout;
                 mid.y2 -= rout;
-                if(lv_area_intersect(&mid, &mid, &layer->_clip_area)) {
+                if(lv_area_intersect(&mid, &mid, &clip_area_ori)) {
                     layer->_clip_area = mid;
                     for(i = 0; i < child_cnt; i++) {
                         lv_obj_t * child = obj->spec_attr->children[i];
@@ -545,11 +547,6 @@ static void refr_sync_areas(void)
          * @todo Resize SDL window will trigger crash because of sync_area is larger than disp_area
          */
         lv_area_intersect(sync_area, sync_area, &disp_area);
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-        if(lv_display_get_matrix_rotation(disp_refr)) {
-            lv_display_rotate_area(disp_refr, sync_area);
-        }
-#endif
         lv_draw_buf_copy(off_screen, sync_area, on_screen, sync_area);
     }
 
@@ -669,18 +666,23 @@ static void refr_area(const lv_area_t * area_p, int32_t y_offset)
     layer->phy_clip_area = *area_p;
     layer->partial_y_offset = y_offset;
 
-    if(disp_refr->render_mode == LV_DISPLAY_RENDER_MODE_PARTIAL) {
+    if(disp_refr->render_mode == LV_DISPLAY_RENDER_MODE_FULL) {
+        /*In full mode the area is always the full screen, so the buffer area to it too*/
+        layer->buf_area = *area_p;
+        layer_reshape_draw_buf(layer, layer->draw_buf->header.stride);
+
+    }
+    else if(disp_refr->render_mode == LV_DISPLAY_RENDER_MODE_PARTIAL) {
         /*In partial mode render this area to the buffer*/
         layer->buf_area = *area_p;
         layer_reshape_draw_buf(layer, LV_STRIDE_AUTO);
     }
-    else if(disp_refr->render_mode == LV_DISPLAY_RENDER_MODE_DIRECT ||
-            disp_refr->render_mode == LV_DISPLAY_RENDER_MODE_FULL) {
-        /*In direct mode and full mode the the buffer area is always the whole screen, not considering rotation*/
+    else if(disp_refr->render_mode == LV_DISPLAY_RENDER_MODE_DIRECT) {
+        /*In direct mode the the buffer area is always the whole screen*/
         layer->buf_area.x1 = 0;
         layer->buf_area.y1 = 0;
-        layer->buf_area.x2 = lv_display_get_original_horizontal_resolution(disp_refr) - 1;
-        layer->buf_area.y2 = lv_display_get_original_vertical_resolution(disp_refr) - 1;
+        layer->buf_area.x2 = lv_display_get_horizontal_resolution(disp_refr) - 1;
+        layer->buf_area.y2 = lv_display_get_vertical_resolution(disp_refr) - 1;
         layer_reshape_draw_buf(layer, layer->draw_buf->header.stride);
     }
 
@@ -764,37 +766,6 @@ static void refr_configured_layer(lv_layer_t * layer)
     LV_PROFILER_REFR_BEGIN;
 
     lv_layer_reset(layer);
-
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(lv_display_get_matrix_rotation(disp_refr)) {
-        const lv_display_rotation_t rotation = lv_display_get_rotation(disp_refr);
-        if(rotation != LV_DISPLAY_ROTATION_0) {
-            lv_display_rotate_area(disp_refr, &layer->phy_clip_area);
-
-            /* The screen rotation direction defined by LVGL is opposite to the drawing angle */
-            switch(rotation) {
-                case LV_DISPLAY_ROTATION_90:
-                    lv_matrix_rotate(&layer->matrix, 270);
-                    lv_matrix_translate(&layer->matrix, -disp_refr->ver_res, 0);
-                    break;
-
-                case LV_DISPLAY_ROTATION_180:
-                    lv_matrix_rotate(&layer->matrix, 180);
-                    lv_matrix_translate(&layer->matrix, -disp_refr->hor_res, -disp_refr->ver_res);
-                    break;
-
-                case LV_DISPLAY_ROTATION_270:
-                    lv_matrix_rotate(&layer->matrix, 90);
-                    lv_matrix_translate(&layer->matrix, 0, -disp_refr->hor_res);
-                    break;
-
-                default:
-                    LV_LOG_WARN("Invalid rotation: %d", rotation);
-                    break;
-            }
-        }
-    }
-#endif /* LV_DRAW_TRANSFORM_USE_MATRIX */
 
     /* In single buffered mode wait here until the buffer is freed.
      * Else we would draw into the buffer while it's still being transferred to the display*/
@@ -1139,7 +1110,7 @@ static void refr_obj(lv_layer_t * layer, lv_obj_t * obj)
 
     /*If `opa_layered != LV_OPA_COVER` draw the widget on a new layer and blend that layer with the given opacity.*/
     const lv_opa_t opa_layered = lv_obj_get_style_opa_layered(obj, LV_PART_MAIN);
-    if(opa_layered <= LV_OPA_MIN) return;
+    if(opa_layered < LV_OPA_MIN) return;
 
     const lv_opa_t layer_opa_ori = layer->opa;
     const lv_color32_t layer_recolor = layer->recolor;

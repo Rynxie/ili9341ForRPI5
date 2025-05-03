@@ -11,8 +11,7 @@
 
 #if LV_USE_FONT_MANAGER
 
-#include "../../font/lv_font.h"
-#include "../../misc/lv_ll.h"
+#include "../../lvgl.h"
 
 /*********************
  *      DEFINES
@@ -28,7 +27,7 @@ struct _lv_font_manager_recycle_t {
 };
 
 typedef struct {
-    lv_font_info_t ft_info;
+    lv_freetype_info_t ft_info;
     char name[LV_FONT_MANAGER_NAME_MAX_LEN];
     lv_font_t * font;
 } lv_font_recycle_t;
@@ -88,7 +87,7 @@ void lv_font_manager_recycle_delete(lv_font_manager_recycle_t * manager)
     LV_LOG_INFO("success");
 }
 
-lv_font_t * lv_font_manager_recycle_get_reuse(lv_font_manager_recycle_t * manager, const lv_font_info_t * ft_info)
+lv_font_t * lv_font_manager_recycle_get_reuse(lv_font_manager_recycle_t * manager, const lv_freetype_info_t * ft_info)
 {
     LV_ASSERT_NULL(manager);
     LV_ASSERT_NULL(ft_info);
@@ -100,7 +99,7 @@ lv_font_t * lv_font_manager_recycle_get_reuse(lv_font_manager_recycle_t * manage
     lv_font_recycle_t * recycle;
     LV_LL_READ(recycle_ll, recycle) {
         /* match font */
-        if(lv_font_info_is_equal(ft_info, &recycle->ft_info)) {
+        if(lv_freetype_info_is_equal(ft_info, &recycle->ft_info)) {
             lv_font_t * font = recycle->font;
             LV_LOG_INFO("found font: %p", (void *)font);
 
@@ -117,7 +116,7 @@ lv_font_t * lv_font_manager_recycle_get_reuse(lv_font_manager_recycle_t * manage
 }
 
 void lv_font_manager_recycle_set_reuse(lv_font_manager_recycle_t * manager, lv_font_t * font,
-                                       const lv_font_info_t * ft_info)
+                                       const lv_freetype_info_t * ft_info)
 {
     LV_ASSERT_NULL(manager);
     LV_ASSERT_NULL(ft_info);
@@ -125,7 +124,7 @@ void lv_font_manager_recycle_set_reuse(lv_font_manager_recycle_t * manager, lv_f
     lv_ll_t * recycle_ll = &manager->recycle_ll;
 
     /* check recycled size */
-    if(lv_ll_get_len(recycle_ll) >= manager->max_size) {
+    if(_lv_ll_get_len(recycle_ll) >= manager->max_size) {
         LV_LOG_INFO("recycle full, remove tail font...");
         lv_font_manager_recycle_remove_tail(manager);
     }
@@ -155,8 +154,7 @@ static void lv_font_recycle_close(lv_font_manager_recycle_t * manager, lv_font_r
     LV_ASSERT_NULL(recycle);
 
     LV_LOG_INFO("font: %s(%d) close", recycle->ft_info.name, recycle->ft_info.size);
-    recycle->ft_info.class_p->delete_cb(recycle->font);
-    recycle->font = NULL;
+    lv_freetype_font_delete(recycle->font);
 
     lv_ll_remove(&manager->recycle_ll, recycle);
     lv_free(recycle);

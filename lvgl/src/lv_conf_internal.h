@@ -1766,42 +1766,28 @@
     #ifdef CONFIG_LV_FONT_MONTSERRAT_28_COMPRESSED
         #define LV_FONT_MONTSERRAT_28_COMPRESSED CONFIG_LV_FONT_MONTSERRAT_28_COMPRESSED
     #else
-        #define LV_FONT_MONTSERRAT_28_COMPRESSED    0  /**< bpp = 3 */
+        #define LV_FONT_MONTSERRAT_28_COMPRESSED 0  /**< bpp = 3 */
     #endif
 #endif
 #ifndef LV_FONT_DEJAVU_16_PERSIAN_HEBREW
     #ifdef CONFIG_LV_FONT_DEJAVU_16_PERSIAN_HEBREW
         #define LV_FONT_DEJAVU_16_PERSIAN_HEBREW CONFIG_LV_FONT_DEJAVU_16_PERSIAN_HEBREW
     #else
-        #define LV_FONT_DEJAVU_16_PERSIAN_HEBREW    0  /**< Hebrew, Arabic, Persian letters and all their forms */
+        #define LV_FONT_DEJAVU_16_PERSIAN_HEBREW 0  /**< Hebrew, Arabic, Persian letters and all their forms */
     #endif
 #endif
 #ifndef LV_FONT_SIMSUN_14_CJK
     #ifdef CONFIG_LV_FONT_SIMSUN_14_CJK
         #define LV_FONT_SIMSUN_14_CJK CONFIG_LV_FONT_SIMSUN_14_CJK
     #else
-        #define LV_FONT_SIMSUN_14_CJK               0  /**< 1000 most common CJK radicals */
+        #define LV_FONT_SIMSUN_14_CJK            0  /**< 1000 most common CJK radicals */
     #endif
 #endif
 #ifndef LV_FONT_SIMSUN_16_CJK
     #ifdef CONFIG_LV_FONT_SIMSUN_16_CJK
         #define LV_FONT_SIMSUN_16_CJK CONFIG_LV_FONT_SIMSUN_16_CJK
     #else
-        #define LV_FONT_SIMSUN_16_CJK               0  /**< 1000 most common CJK radicals */
-    #endif
-#endif
-#ifndef LV_FONT_SOURCE_HAN_SANS_SC_14_CJK
-    #ifdef CONFIG_LV_FONT_SOURCE_HAN_SANS_SC_14_CJK
-        #define LV_FONT_SOURCE_HAN_SANS_SC_14_CJK CONFIG_LV_FONT_SOURCE_HAN_SANS_SC_14_CJK
-    #else
-        #define LV_FONT_SOURCE_HAN_SANS_SC_14_CJK   0  /**< 1338 most common CJK radicals */
-    #endif
-#endif
-#ifndef LV_FONT_SOURCE_HAN_SANS_SC_16_CJK
-    #ifdef CONFIG_LV_FONT_SOURCE_HAN_SANS_SC_16_CJK
-        #define LV_FONT_SOURCE_HAN_SANS_SC_16_CJK CONFIG_LV_FONT_SOURCE_HAN_SANS_SC_16_CJK
-    #else
-        #define LV_FONT_SOURCE_HAN_SANS_SC_16_CJK   0  /**< 1338 most common CJK radicals */
+        #define LV_FONT_SIMSUN_16_CJK            0  /**< 1000 most common CJK radicals */
     #endif
 #endif
 
@@ -2494,14 +2480,6 @@
         #endif
     #else
         #define LV_USE_WIN        1
-    #endif
-#endif
-
-#ifndef LV_USE_3DTEXTURE
-    #ifdef CONFIG_LV_USE_3DTEXTURE
-        #define LV_USE_3DTEXTURE CONFIG_LV_USE_3DTEXTURE
-    #else
-        #define LV_USE_3DTEXTURE  0
     #endif
 #endif
 
@@ -3247,17 +3225,6 @@
                 #define LV_PROFILER_BUILTIN_BUF_SIZE (16 * 1024)     /**< [bytes] */
             #endif
         #endif
-        #ifndef LV_PROFILER_BUILTIN_DEFAULT_ENABLE
-            #ifdef LV_KCONFIG_PRESENT
-                #ifdef CONFIG_LV_PROFILER_BUILTIN_DEFAULT_ENABLE
-                    #define LV_PROFILER_BUILTIN_DEFAULT_ENABLE CONFIG_LV_PROFILER_BUILTIN_DEFAULT_ENABLE
-                #else
-                    #define LV_PROFILER_BUILTIN_DEFAULT_ENABLE 0
-                #endif
-            #else
-                #define LV_PROFILER_BUILTIN_DEFAULT_ENABLE 1
-            #endif
-        #endif
     #endif
 
     /** Header to include for profiler */
@@ -3583,7 +3550,8 @@
     #endif
 #endif
 
-/** 1: Enable Font manager */
+/** 1: Enable freetype font manager
+ *  - Requires: LV_USE_FREETYPE */
 #ifndef LV_USE_FONT_MANAGER
     #ifdef CONFIG_LV_USE_FONT_MANAGER
         #define LV_USE_FONT_MANAGER CONFIG_LV_USE_FONT_MANAGER
@@ -4047,13 +4015,6 @@
         #define LV_USE_ILI9341 CONFIG_LV_USE_ILI9341
     #else
         #define LV_USE_ILI9341       0
-    #endif
-#endif
-#ifndef LV_USE_FT81X
-    #ifdef CONFIG_LV_USE_FT81X
-        #define LV_USE_FT81X CONFIG_LV_USE_FT81X
-    #else
-        #define LV_USE_FT81X         0
     #endif
 #endif
 
