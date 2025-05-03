@@ -5,6 +5,8 @@
 
 #define TICK_PERIOD_MS 1  // 1 ms tick
 
+static uint8_t buf1[320 * 240 / 10 * BYTES_PER_PIXEL];
+
 void* tick_thread(void* arg) {
     while (1) {
         lv_tick_inc(TICK_PERIOD_MS);
