@@ -34,7 +34,9 @@ void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_ma
 
     } */
 
-    ILI9341_DrawImage(area->y1,area->x1, area->y2 - area->y1 + 1, area->x2 - area->x1 + 1,buf16);
+    ILI9341_DrawImage(area->y1, area->x1, area->y2, area->x2, buf16);
+
+
    
 
     lv_display_flush_ready(display);

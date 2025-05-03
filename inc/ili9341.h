@@ -23,8 +23,8 @@
 #define ILI9341_LED_Pin       22
 
 // default orientation
-#define ILI9341_WIDTH  240
-#define ILI9341_HEIGHT 320
+#define ILI9341_WIDTH  320
+#define ILI9341_HEIGHT 240
 #define ILI9341_ROTATION (ILI9341_MADCTL_MX | ILI9341_MADCTL_BGR)
 
 // rotate right
