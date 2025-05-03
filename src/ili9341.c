@@ -138,7 +138,7 @@ void ILI9341_Init() {
 	ioctl(spi_fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed);
 
     uint32_t actual_speed = 0;
-    if (ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &actual_speed) < 0) {
+    if (ioctl(spi_fd, SPI_IOC_RD_MAX_SPEED_HZ, &actual_speed) < 0) {
         perror("SPI hızı okunamadı");
     } else {
         printf("Gerçek SPI hızı: %u Hz\n", actual_speed);
