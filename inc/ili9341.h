@@ -29,17 +29,17 @@
 
 // rotate right
 
-#define ILI9341_WIDTH  320
+/* #define ILI9341_WIDTH  320
 #define ILI9341_HEIGHT 240
 #define ILI9341_ROTATION (ILI9341_MADCTL_MX | ILI9341_MADCTL_MY | ILI9341_MADCTL_MV | ILI9341_MADCTL_BGR)
-
+ */
 
 // rotate left
-/*
+
 #define ILI9341_WIDTH  320
 #define ILI9341_HEIGHT 240
 #define ILI9341_ROTATION (ILI9341_MADCTL_MV | ILI9341_MADCTL_BGR)
-*/
+
 
 // upside down
 /*
