@@ -43,8 +43,7 @@ int main() {
     lv_init();
 
 
-    pthread_t tick_tid;
-    pthread_create(&tick_tid, NULL, tick_thread, NULL);
+   
 
     lv_tick_set_cb(getTick);
 
@@ -54,6 +53,8 @@ int main() {
     lv_display_set_flush_cb(display, my_flush_cb);
     ui_init();
     sleep(1);
+    pthread_t tick_tid;
+    pthread_create(&tick_tid, NULL, tick_thread, NULL);
     while (1)
     {
         uint32_t time_till_next = lv_timer_handler();
