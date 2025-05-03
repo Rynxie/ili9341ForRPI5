@@ -24,7 +24,7 @@ void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_ma
 {
     
     uint16_t * buf16 = (uint16_t *)px_map;
-    int32_t x, y;
+    /* int32_t x, y;
     for(y = area->y1; y <= area->y2; y++) {
         for(x = area->x1; x <= area->x2; x++) {
             ILI9341_DrawPixel(y,x,*buf16);
@@ -32,7 +32,9 @@ void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_ma
             
         }
 
-    }
+    } */
+
+    ILI9341_DrawImage(area->y1,area->x1, area->y2, area->x2,buf16)
    
 
     lv_display_flush_ready(display);
