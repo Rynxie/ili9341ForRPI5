@@ -53,7 +53,7 @@ int main() {
     lv_tick_set_cb(getTick);
 
     lv_display_t * display = lv_display_create(ILI9341_HEIGHT, ILI9341_WIDTH);
-    lv_set
+    
     lv_display_set_buffers(display, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
     lv_display_set_flush_cb(display, my_flush_cb);
     ui_init();
