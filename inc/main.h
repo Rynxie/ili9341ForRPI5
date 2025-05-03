@@ -9,6 +9,9 @@
 #include <sys/ioctl.h>
 #include <linux/spi/spidev.h>
 
+#include "lvgl.h"
+#include "ui.h"
+
 
 
 #endif //MAIN_H
