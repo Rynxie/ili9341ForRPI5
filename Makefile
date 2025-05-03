@@ -6,7 +6,7 @@ C_SOURCES = ./src/fonts.c \
 ./src/ili9341.c \
 ./src/main.c
 
-LVGL_DIR := ../lvgl/src
+LVGL_DIR := ./lvgl/src
 
 # Tüm alt klasörleri bul
 LVGL_SUBDIRS := $(shell find $(LVGL_DIR) -type d)

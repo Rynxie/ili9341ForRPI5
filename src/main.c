@@ -22,7 +22,7 @@ void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_ma
     int32_t x, y;
     for(y = area->y1; y <= area->y2; y++) {
         for(x = area->x1; x <= area->x2; x++) {
-            ILI9341_DrawPixel(x,y,*buf16)
+            ILI9341_DrawPixel(x,y,*buf16);
             buf16++;
             
         }
