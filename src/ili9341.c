@@ -134,119 +134,119 @@ void ILI9341_Init() {
         
     //POWER CONTROL A
     ILI9341_WriteCommand(0xCB);
-    ILI9341_Write_Data(*(uint8_t *)0x39,1);
-    ILI9341_Write_Data(*(uint8_t *)0x2C,1);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
-    ILI9341_Write_Data(*(uint8_t *)0x34,1);
-    ILI9341_Write_Data(*(uint8_t *)0x02,1);
+    ILI9341_WriteData(*(uint8_t *)0x39,1);
+    ILI9341_WriteData(*(uint8_t *)0x2C,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0x34,1);
+    ILI9341_WriteData(*(uint8_t *)0x02,1);
 
     //POWER CONTROL B
     ILI9341_WriteCommand(0xCF);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
-    ILI9341_Write_Data(*(uint8_t *)0xC1,1);
-    ILI9341_Write_Data(*(uint8_t *)0x30,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0xC1,1);
+    ILI9341_WriteData(*(uint8_t *)0x30,1);
 
     //DRIVER TIMING CONTROL A
     ILI9341_WriteCommand(0xE8);
-    ILI9341_Write_Data(*(uint8_t *)0x85,1);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
-    ILI9341_Write_Data(*(uint8_t *)0x78,1);
+    ILI9341_WriteData(*(uint8_t *)0x85,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0x78,1);
 
     //DRIVER TIMING CONTROL B
     ILI9341_WriteCommand(0xEA);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
 
     //POWER ON SEQUENCE CONTROL
     ILI9341_WriteCommand(0xED);
-    ILI9341_Write_Data(*(uint8_t *)0x64,1);
-    ILI9341_Write_Data(*(uint8_t *)0x03,1);
-    ILI9341_Write_Data(*(uint8_t *)0x12,1);
-    ILI9341_Write_Data(*(uint8_t *)0x81,1);
+    ILI9341_WriteData(*(uint8_t *)0x64,1);
+    ILI9341_WriteData(*(uint8_t *)0x03,1);
+    ILI9341_WriteData(*(uint8_t *)0x12,1);
+    ILI9341_WriteData(*(uint8_t *)0x81,1);
 
     //PUMP RATIO CONTROL
     ILI9341_WriteCommand(0xF7);
-    ILI9341_Write_Data(*(uint8_t *)0x20,1);
+    ILI9341_WriteData(*(uint8_t *)0x20,1);
 
     //POWER CONTROL,VRH[5:0]
     ILI9341_WriteCommand(0xC0);
-    ILI9341_Write_Data(*(uint8_t *)0x23,1);
+    ILI9341_WriteData(*(uint8_t *)0x23,1);
 
     //POWER CONTROL,SAP[2:0];BT[3:0]
     ILI9341_WriteCommand(0xC1);
-    ILI9341_Write_Data(*(uint8_t *)0x10,1);
+    ILI9341_WriteData(*(uint8_t *)0x10,1);
 
     //VCM CONTROL
     ILI9341_WriteCommand(0xC5);
-    ILI9341_Write_Data(*(uint8_t *)0x3E,1);
-    ILI9341_Write_Data(*(uint8_t *)0x28,1);
+    ILI9341_WriteData(*(uint8_t *)0x3E,1);
+    ILI9341_WriteData(*(uint8_t *)0x28,1);
 
     //VCM CONTROL 2
     ILI9341_WriteCommand(0xC7);
-    ILI9341_Write_Data(*(uint8_t *)0x86,1);
+    ILI9341_WriteData(*(uint8_t *)0x86,1);
 
     //MEMORY ACCESS CONTROL
     ILI9341_WriteCommand(0x36);
-    ILI9341_Write_Data(*(uint8_t *)0x48,1);
+    ILI9341_WriteData(*(uint8_t *)0x48,1);
 
     //PIXEL FORMAT
     ILI9341_WriteCommand(0x3A);
-    ILI9341_Write_Data(*(uint8_t *)0x55,1);
+    ILI9341_WriteData(*(uint8_t *)0x55,1);
 
     //FRAME RATIO CONTROL, STANDARD RGB COLOR
     ILI9341_WriteCommand(0xB1);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
-    ILI9341_Write_Data(*(uint8_t *)0x18,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0x18,1);
 
     //DISPLAY FUNCTION CONTROL
     ILI9341_WriteCommand(0xB6);
-    ILI9341_Write_Data(*(uint8_t *)0x08,1);
-    ILI9341_Write_Data(*(uint8_t *)0x82,1);
-    ILI9341_Write_Data(*(uint8_t *)0x27,1);
+    ILI9341_WriteData(*(uint8_t *)0x08,1);
+    ILI9341_WriteData(*(uint8_t *)0x82,1);
+    ILI9341_WriteData(*(uint8_t *)0x27,1);
 
     //3GAMMA FUNCTION DISABLE
     ILI9341_WriteCommand(0xF2);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
 
     //GAMMA CURVE SELECTED
     ILI9341_WriteCommand(0x26);
-    ILI9341_Write_Data(*(uint8_t *)0x01,1);
+    ILI9341_WriteData(*(uint8_t *)0x01,1);
 
     //POSITIVE GAMMA CORRECTION
     ILI9341_WriteCommand(0xE0);
-    ILI9341_Write_Data(*(uint8_t *)0x0F,1);
-    ILI9341_Write_Data(*(uint8_t *)0x31,1);
-    ILI9341_Write_Data(*(uint8_t *)0x2B,1);
-    ILI9341_Write_Data(*(uint8_t *)0x0C,1);
-    ILI9341_Write_Data(*(uint8_t *)0x0E,1);
-    ILI9341_Write_Data(*(uint8_t *)0x08,1);
-    ILI9341_Write_Data(*(uint8_t *)0x4E,1);
-    ILI9341_Write_Data(*(uint8_t *)0xF1,1);
-    ILI9341_Write_Data(*(uint8_t *)0x37,1);
-    ILI9341_Write_Data(*(uint8_t *)0x07,1);
-    ILI9341_Write_Data(*(uint8_t *)0x10,1);
-    ILI9341_Write_Data(*(uint8_t *)0x03,1);
-    ILI9341_Write_Data(*(uint8_t *)0x0E,1);
-    ILI9341_Write_Data(*(uint8_t *)0x09,1);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0x0F,1);
+    ILI9341_WriteData(*(uint8_t *)0x31,1);
+    ILI9341_WriteData(*(uint8_t *)0x2B,1);
+    ILI9341_WriteData(*(uint8_t *)0x0C,1);
+    ILI9341_WriteData(*(uint8_t *)0x0E,1);
+    ILI9341_WriteData(*(uint8_t *)0x08,1);
+    ILI9341_WriteData(*(uint8_t *)0x4E,1);
+    ILI9341_WriteData(*(uint8_t *)0xF1,1);
+    ILI9341_WriteData(*(uint8_t *)0x37,1);
+    ILI9341_WriteData(*(uint8_t *)0x07,1);
+    ILI9341_WriteData(*(uint8_t *)0x10,1);
+    ILI9341_WriteData(*(uint8_t *)0x03,1);
+    ILI9341_WriteData(*(uint8_t *)0x0E,1);
+    ILI9341_WriteData(*(uint8_t *)0x09,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
 
     //NEGATIVE GAMMA CORRECTION
     ILI9341_WriteCommand(0xE1);
-    ILI9341_Write_Data(*(uint8_t *)0x00,1);
-    ILI9341_Write_Data(*(uint8_t *)0x0E,1);
-    ILI9341_Write_Data(*(uint8_t *)0x14,1);
-    ILI9341_Write_Data(*(uint8_t *)0x03,1);
-    ILI9341_Write_Data(*(uint8_t *)0x11,1);
-    ILI9341_Write_Data(*(uint8_t *)0x07,1);
-    ILI9341_Write_Data(*(uint8_t *)0x31,1);
-    ILI9341_Write_Data(*(uint8_t *)0xC1,1);
-    ILI9341_Write_Data(*(uint8_t *)0x48,1);
-    ILI9341_Write_Data(*(uint8_t *)0x08,1);
-    ILI9341_Write_Data(*(uint8_t *)0x0F,1);
-    ILI9341_Write_Data(*(uint8_t *)0x0C,1);
-    ILI9341_Write_Data(*(uint8_t *)0x31,1);
-    ILI9341_Write_Data(*(uint8_t *)0x36,1);
-    ILI9341_Write_Data(*(uint8_t *)0x0F,1);
+    ILI9341_WriteData(*(uint8_t *)0x00,1);
+    ILI9341_WriteData(*(uint8_t *)0x0E,1);
+    ILI9341_WriteData(*(uint8_t *)0x14,1);
+    ILI9341_WriteData(*(uint8_t *)0x03,1);
+    ILI9341_WriteData(*(uint8_t *)0x11,1);
+    ILI9341_WriteData(*(uint8_t *)0x07,1);
+    ILI9341_WriteData(*(uint8_t *)0x31,1);
+    ILI9341_WriteData(*(uint8_t *)0xC1,1);
+    ILI9341_WriteData(*(uint8_t *)0x48,1);
+    ILI9341_WriteData(*(uint8_t *)0x08,1);
+    ILI9341_WriteData(*(uint8_t *)0x0F,1);
+    ILI9341_WriteData(*(uint8_t *)0x0C,1);
+    ILI9341_WriteData(*(uint8_t *)0x31,1);
+    ILI9341_WriteData(*(uint8_t *)0x36,1);
+    ILI9341_WriteData(*(uint8_t *)0x0F,1);
 }
 
 void ILI9341_DrawPixel(uint16_t x, uint16_t y, uint16_t color) {
