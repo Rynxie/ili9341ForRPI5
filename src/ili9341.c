@@ -9,7 +9,7 @@ struct gpiod_line *resetPin;
 
 
 #define SPI_CHANNEL 0    // SPI0 (spidev0.0)
-#define SPI_SPEED   100000000  // 50 MHz
+#define SPI_SPEED   50000000  // 50 MHz
 
 static void ILI9341_Select() {
    // HAL_GPIO_WritePin(ILI9341_CS_GPIO_Port, ILI9341_CS_Pin, GPIO_PIN_RESET);
