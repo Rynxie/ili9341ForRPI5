@@ -5,7 +5,7 @@
 
 #define TICK_PERIOD_MS 1  // 1 ms tick
 
-static uint8_t buf1[320 * 240 / 10 * BYTES_PER_PIXEL];
+static uint8_t buf1[320 * 240 / 10 * 2];
 
 void* tick_thread(void* arg) {
     while (1) {
@@ -22,7 +22,7 @@ void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_ma
     int32_t x, y;
     for(y = area->y1; y <= area->y2; y++) {
         for(x = area->x1; x <= area->x2; x++) {
-            ILI9341_DrawPixel(x,y,*buf16);
+            ILI9341_DrawPixel(y,x,*buf16);
             buf16++;
             
         }
