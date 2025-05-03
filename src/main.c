@@ -5,7 +5,7 @@
 
 #define TICK_PERIOD_MS 1  // 1 ms tick
 
-static uint8_t buf1[320 * 240 / 10 * 2];
+static uint8_t buf1[320 * 240 * 2];
 int tick;
 
 void* tick_thread(void* arg) {
@@ -52,7 +52,7 @@ int main() {
 
     lv_display_t * display = lv_display_create(ILI9341_HEIGHT, ILI9341_WIDTH);
     
-    lv_display_set_buffers(display, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
+    lv_display_set_buffers(display, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_FULL);
     lv_display_set_flush_cb(display, my_flush_cb);
     ui_init();
     sleep(1);
