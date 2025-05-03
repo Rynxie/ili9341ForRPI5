@@ -24,7 +24,10 @@ void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_ma
 {
     
     uint16_t * buf16 = (uint16_t *)px_map;
- 
+    if(area->x2 - area->x1 == 0  && area->y2 - area->y1 == 0){
+        ILI9341_DrawImage(area->x1, area->y1, area->x2 - area->x1, area->y2 - area->y1, buf16);
+        printf("Full screen frame sended");
+    }
 
     ILI9341_DrawImage(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, buf16);
 
