@@ -74,12 +74,12 @@ static void ILI9341_WriteData(uint8_t* buff, size_t buff_size) {
    
 
  
-    while(buff_size > 0) {
-        uint16_t chunk_size = buff_size > 32768 ? 32768 : buff_size;
+    /* while(buff_size > 0) {
+        uint16_t chunk_size = buff_size > 32768 ? 32768 : buff_size; */
         spiSendData(buff, buff_size);
-        buff += chunk_size;
+   /*      buff += chunk_size;
         buff_size -= chunk_size;
-    }
+    } */
 }
 
 static void ILI9341_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1) {
