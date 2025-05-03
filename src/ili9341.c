@@ -12,7 +12,7 @@ int spi_fd;
 const char *device = "/dev/spidev0.0";
 uint8_t mode = SPI_MODE_0;
 uint8_t bits = 8;
-uint32_t speed = 500000;
+uint32_t speed = 50000000;
 
 static void ILI9341_Select() {
    // HAL_GPIO_WritePin(ILI9341_CS_GPIO_Port, ILI9341_CS_Pin, GPIO_PIN_RESET);
