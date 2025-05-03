@@ -53,7 +53,9 @@ int main() {
 
     while (1)
     {
-        lv_timer_handler();
+        uint32_t time_till_next = lv_timer_handler();
+        if(time_till_next == LV_NO_TIMER_READY) time_till_next = LV_DEF_REFR_PERIOD; /*handle LV_NO_TIMER_READY. Another option is to `sleep` for longer*/
+        usleep(time_till_next);
     }
     
 
