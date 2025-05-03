@@ -6,15 +6,20 @@
 #define TICK_PERIOD_MS 1  // 1 ms tick
 
 static uint8_t buf1[320 * 240 / 10 * 2];
+int tick;
 
 void* tick_thread(void* arg) {
     while (1) {
-        lv_tick_inc(TICK_PERIOD_MS);
+        tick++;
         usleep(TICK_PERIOD_MS * 1000);  // 1 ms delay
     }
     return NULL;
 }
 
+
+int getTick(){
+    return tick;
+}
 void my_flush_cb(lv_display_t * display, const lv_area_t * area, uint8_t * px_map)
 {
     
@@ -45,8 +50,10 @@ int main() {
     pthread_t tick_tid;
     pthread_create(&tick_tid, NULL, tick_thread, NULL);
 
+    lv_tick_set_cb(getTick);
+
     lv_display_t * display = lv_display_create(ILI9341_HEIGHT, ILI9341_WIDTH);
-    
+    lv_set
     lv_display_set_buffers(display, buf1, NULL, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
     lv_display_set_flush_cb(display, my_flush_cb);
     ui_init();
