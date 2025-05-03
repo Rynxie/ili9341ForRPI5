@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "lvgl.h": "c"
+        "lvgl.h": "c",
+        "cstdint": "c"
     }
 }
