@@ -27,7 +27,7 @@ INCLUDES = -I./inc/ \
 
 INCLUDES += $(LVGL_INCLUDES)
 
-C_FLAGS = -lgpiod -lpthread
+C_FLAGS = -lgpiod -lpthread -lwiringPi
 
 $(TARGET):
 	mkdir -p $(BUILD_DIR)

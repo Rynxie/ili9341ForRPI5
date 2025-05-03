@@ -8,11 +8,8 @@ struct gpiod_line *dcPin;
 struct gpiod_line *resetPin;
 
 
-int spi_fd;
-const char *device = "/dev/spidev0.0";
-uint8_t mode = SPI_MODE_0;
-uint8_t bits = 8;
-uint32_t speed = 50000000;
+#define SPI_CHANNEL 0    // SPI0 (spidev0.0)
+#define SPI_SPEED   50000000  // 50 MHz
 
 static void ILI9341_Select() {
    // HAL_GPIO_WritePin(ILI9341_CS_GPIO_Port, ILI9341_CS_Pin, GPIO_PIN_RESET);
@@ -21,19 +18,10 @@ static void ILI9341_Select() {
 }
 
 static void spiSendData(uint8_t * data, size_t len){
-    struct spi_ioc_transfer tr = {
-        .tx_buf = (unsigned long)data,
-        .rx_buf = 0,
-        .len = len,
-        .speed_hz = speed,
-        .bits_per_word = bits,
-    };
-
-    if (ioctl(spi_fd, SPI_IOC_MESSAGE(1), &tr) < 1) {
-        perror("SPI transfer hatası");
-        close(spi_fd);
-        
-    } 
+    if (wiringPiSPIDataRW(SPI_CHANNEL, data, len) == -1) {
+        perror("SPI veri gönderme/alma hatası");
+        return 1;
+    }
 
 }
 
@@ -127,15 +115,10 @@ void ILI9341_Init() {
 	gpiod_line_set_value(dcPin, 0);
 
 
-	spi_fd = open(device , O_RDWR);
-	if(spi_fd < 0){
-		perror("SPI error");
-		return 1;
-	}
-
-	ioctl(spi_fd, SPI_IOC_WR_MODE &mode);
-	ioctl(spi_fd, SPI_IOC_WR_BITS_PER_WORD, &bits);
-	ioctl(spi_fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed);
+    if (wiringPiSPISetup(SPI_CHANNEL, SPI_SPEED) < 0) {
+        perror("SPI başlatılamadı");
+        return 1;
+    }
 
     uint32_t actual_speed = 0;
     if (ioctl(spi_fd, SPI_IOC_RD_MAX_SPEED_HZ, &actual_speed) < 0) {
