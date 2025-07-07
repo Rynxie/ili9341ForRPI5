@@ -10,7 +10,7 @@
 #include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-
-
+#include "fonts.h"
+#include "ili9341.h"
 
 #endif //MAIN_H
