@@ -21,10 +21,7 @@ UI_SRC := $(wildcard ./ui/*.c)
 C_SOURCES += $(UI_SRC)
 C_SOURCES += $(LVGL_SOURCES)
 
-INCLUDES = -I./inc/ \
--I./lvgl/ \
--I./ui/
-
+INCLUDES = -I./inc/ 
 INCLUDES += $(LVGL_INCLUDES)
 
 C_FLAGS = -lgpiod -lpthread -lwiringPi

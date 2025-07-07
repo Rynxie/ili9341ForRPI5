@@ -2,6 +2,7 @@
     "files.associations": {
         "stdio.h": "c",
         "lvgl.h": "c",
-        "cstdint": "c"
+        "cstdint": "c",
+        "stdint.h": "c"
     }
 }
