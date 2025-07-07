@@ -63,7 +63,12 @@ static void ILI9341_WriteData(uint8_t* buff, size_t buff_size) {
 
  
     while(buff_size > 0) {
-        uint16_t chunk_size = buff_size > 65536 ? 65536 : buff_size;
+        uint16_t chunk_size = 0;
+        if(buff_size > 65536){
+            chunk_size = 65536;
+        }else{
+            chunk_size = buff_size;
+        }
         spiSendData(buff, chunk_size);
         buff += chunk_size;
         buff_size -= chunk_size;
